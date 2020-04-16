@@ -94,7 +94,7 @@ func (s *testSuite) TestMust(c *C) {
 	defer func() {
 		c.Assert(recover(), NotNil)
 	}()
-	Must(func() (UUID, error) {
+	MustWithError(func() (UUID, error) {
 		return Nil, fmt.Errorf("uuid: expected error")
 	}())
 }

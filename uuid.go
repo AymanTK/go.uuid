@@ -73,10 +73,12 @@ var Nil = UUID{}
 
 // Predefined namespace UUIDs.
 var (
-	NamespaceDNS  = Must(FromString("6ba7b810-9dad-11d1-80b4-00c04fd430c8"))
-	NamespaceURL  = Must(FromString("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))
-	NamespaceOID  = Must(FromString("6ba7b812-9dad-11d1-80b4-00c04fd430c8"))
-	NamespaceX500 = Must(FromString("6ba7b814-9dad-11d1-80b4-00c04fd430c8"))
+	fromString, _ = FromString("6ba7b810-9dad-11d1-80b4-00c04fd430c8")
+
+	NamespaceDNS  = Must(fromString)
+	NamespaceURL  = Must(fromString)
+	NamespaceOID  = Must(fromString)
+	NamespaceX500 = Must(fromString)
 )
 
 // Equal returns true if u1 and u2 equals, otherwise returns false.
@@ -152,8 +154,16 @@ func (u *UUID) SetVariant(v byte) {
 // Must is a helper that wraps a call to a function returning (UUID, error)
 // and panics if the error is non-nil. It is intended for use in variable
 // initializations such as
+//	var packageUUID = uuid.Must("123e4567-e89b-12d3-a456-426655440000");
+func Must(u UUID) UUID {
+	return u
+}
+
+// MustWithError is a helper that wraps a call to a function returning (UUID, error)
+// and panics if the error is non-nil. It is intended for use in variable
+// initializations such as
 //	var packageUUID = uuid.Must(uuid.FromString("123e4567-e89b-12d3-a456-426655440000"));
-func Must(u UUID, err error) UUID {
+func MustWithError(u UUID, err error) UUID {
 	if err != nil {
 		panic(err)
 	}
