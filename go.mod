@@ -1,3 +1,3 @@
-module github.com/satori/go.uuid
+module github.com/AymanTK/go.uuid
 
 go 1.12
